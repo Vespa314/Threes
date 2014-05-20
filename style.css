@@ -1,0 +1,52 @@
+body{
+	margin: 0px;
+	background: #FFF;
+}
+
+#gamearea{
+	padding: 0px;
+	margin: 0px;
+	
+}
+
+header{
+	padding: 0px;
+	margin: auto;
+	width:600px;//
+}
+
+#next {
+	background: #cfe6df;
+	border-radius: 0 0 25px 25px;
+	width: 60px;
+	height: 113px;
+	margin: auto;
+	text-align: center;
+}
+
+.tiptext{
+	font-size: 20px;
+	font-weight: bold;
+	position: relative;
+	top: 110px;
+	/*font-family: */
+}
+
+.grid{
+	margin: 5px;
+	width: 70px;
+	height: 100px;
+	background: #bbd9d9;
+	float: left;
+	border-radius: 5px;
+}
+
+#container{
+	width: 320px;
+	margin: auto;
+	margin-top: 30px;
+	background: #cfe6df;
+	height: 444px;
+	border-radius: 15px;
+	padding: 20px;
+}
