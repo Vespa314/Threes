@@ -1,3 +1,7 @@
+html{
+	font-family: 'Signika','Comic Sans MS','PT Sans','Eras Light ITC',Helvetica,Arial,sans-serif;
+}
+
 body{
 	margin: 0px;
 	background: #FFF;
@@ -6,19 +10,18 @@ body{
 #gamearea{
 	padding: 0px;
 	margin: 0px;
-	
 }
 
 header{
 	padding: 0px;
 	margin: auto;
-	width:600px;//
+	width:600px;
 }
 
 #next {
 	background: #cfe6df;
 	border-radius: 0 0 25px 25px;
-	width: 60px;
+	width: 80px;
 	height: 113px;
 	margin: auto;
 	text-align: center;
@@ -44,21 +47,25 @@ header{
 }
 
 .grid{
-	margin: 5px;
-	width: 70px;
-	height: 100px;
 	background: #bbd9d9;
 	float: left;
 	border-radius: 5px;
+	position: absolute;
 }
 
 #container{
-	width: 320px;
 	margin: auto;
 	margin-top: 30px;
 	background: #cfe6df;
-	height: 444px;
 	border-radius: 24px;
-	padding: 20px;
 	border-top: 8px solid #bbd9d9;
+	position: relative;
+}
+
+.gridnum{
+	position: absolute;
+	border-radius: 10px;
+	text-align: center;
+	font-size: 50px;
+	line-height: 100px;
 }
