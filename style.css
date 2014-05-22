@@ -30,20 +30,17 @@ header{
 #nexticon{
 	width:39px;
 	height: 51px;
-	background: #ff6881;
 	margin: auto;
-	top: 16px;
+	top: 51px;
 	position: relative;
 	border-radius: 9px;
-	border-bottom: 3px solid #ff1111;
 }
 
 .tiptext{
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: bold;
 	position: relative;
-	top: 110px;
-	/*font-family: */
+	top: 54px;
 }
 
 .grid{
@@ -68,4 +65,11 @@ header{
 	text-align: center;
 	font-size: 50px;
 	line-height: 100px;
+}
+
+#plusicon{
+	position: relative;
+	font-size: 47px;
+	top: -44px;
+	visibility: hidden;
 }

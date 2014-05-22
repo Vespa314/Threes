@@ -1,16 +1,23 @@
-var boardsize = 5; //格子尺寸
-var InitGridNum = 4; //初始化时出现的格子数
+var boardsize = 4; //格子尺寸
+var InitGridNum = 7; //初始化时出现的格子数
 var board = new Array();
 var gridwidth = 70; //px
 var gridheight = 100; //px
 var gridmargin = 5; //px
 var boardpadding = 20; //棋盘内边距
 
+var score = 0;
+var nextlist = new Array();
+var nextcounter = 0;
+var maxgrid = 0;
+var nextnum = 1;
+
 $(document).ready(function() {
     CreateBackground();
     init();
 })
 
+//create grid of background
 function CreateBackground() {
     $('.grid').remove();
     for (var i = 0; i < boardsize; i++) {
@@ -32,6 +39,11 @@ function init() {
     MakeBoard();
     //Random Init Board
     RandomInitBoard();
+    //Init Next List
+    score = 0;
+    nextcounter = 0;
+    maxgrid = board.max();
+    nextlist = createNextList();
     //UpdateBoard
     UpdateBoard();
 }
@@ -51,20 +63,6 @@ function MakeBoard() {
     };
 }
 
-function RandomInitBoard() {
-    var posx = 0;
-    var posx = 0;
-    for (var i = 0; i < InitGridNum; i++) {
-        posx = Math.ceil(Math.random() * boardsize) - 1;
-        posy = Math.ceil(Math.random() * boardsize) - 1;
-        while (board[posx][posy] != 0) {
-            posx = Math.ceil(Math.random() * boardsize) - 1;
-            posy = Math.ceil(Math.random() * boardsize) - 1;
-        }
-        board[posx][posy] = Math.ceil(Math.random() * 3); //随机赋予1,2,3
-    };
-}
-
 function UpdateBoard() {
     //create gridnum
     $('.gridnum').remove();
@@ -77,5 +75,60 @@ function UpdateBoard() {
         for (var j = 0; j < boardsize; j++) {
             setgrid(i, j, board[i][j]);
         }
+    }
+    updateNextNum();
+}
+
+function updateNextNum() {
+    nextnum = GetNextNum();
+    var nextIcon = $('#nexticon');
+    var plusicon = $('#plusicon');
+    if (nextnum == 1) {
+        nextIcon.css('background', '#6CF');
+        nextIcon.css('border-bottom', '3px solid #60aaf1');
+        plusicon.css('visibility', 'hidden');
+    } else if (nextnum == 2) {
+        nextIcon.css('background', '#FF6881');
+        nextIcon.css('border-bottom', '3px solid #cc547c');
+        plusicon.css('visibility', 'hidden');
+    } else {
+        nextIcon.css('background', '#FEFFFF');
+        nextIcon.css('border-bottom', '3px solid #fc6');
+        if (nextnum == 3) {
+            plusicon.css('visibility', 'hidden');
+        } else {
+            plusicon.css('visibility', 'visible');
+        }
+    }
+}
+
+function setgrid(i, j, value) {
+    var grid = $('#gridnumber-' + i + "-" + j);
+    if (value == 0) return;
+    grid.css('width', gridwidth + 'px');
+    grid.css('height', gridheight + 'px');
+    if (value == 1) {
+        grid.css('background', '#6CF');
+        grid.css('left', getleft(i, j) + 'px');
+        grid.css('top', gettop(i, j) + 'px');
+        grid.css('color', '#FFF');
+        grid.css('borderRa', '#FFF');
+        grid.css('borderBottom', '5px solid #60aaf1');
+        grid.text(1);
+    } else if (value == 2) {
+        grid.css('background', '#FF6881');
+        grid.css('left', getleft(i, j) + 'px');
+        grid.css('top', gettop(i, j) + 'px');
+        grid.css('color', '#FFF');
+        grid.css('borderBottom', '5px solid #cc547c');
+        grid.text(2);
+    } else if (value >= 3) {
+        grid.css('background', '#FEFFFF');
+        grid.css('left', getleft(i, j) + 'px');
+        grid.css('top', gettop(i, j) + 'px');
+        grid.css('color', '#000');
+        grid.css('borderBottom', '5px solid #fc6');
+        grid.text(value);
+
     }
 }
