@@ -1,0 +1,1 @@
+animate_span = 200; //ms

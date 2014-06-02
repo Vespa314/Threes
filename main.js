@@ -39,6 +39,13 @@ function init() {
     MakeBoard();
     //Random Init Board
     RandomInitBoard();
+    //这个情况下有BUG，待查证
+    // board = [
+    //     [0, 0, 0, 1],
+    //     [0, 0, 48, 6],
+    //     [2, 6, 12, 3],
+    //     [2, 0, 0, 2]
+    // ]
     //Init Next List
     score = 0;
     nextcounter = 0;
