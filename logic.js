@@ -44,6 +44,7 @@ function GetNextNum() {
 }
 
 $(document).keydown(function(event) {
+    event.preventDefault();
     switch (event.keyCode) {
         case 37: //left
             moveleft();
@@ -63,7 +64,7 @@ $(document).keydown(function(event) {
 })
 
 function moveleft() {
-    var moveflag = 0;
+    var canmove = 0;
     var moveline = [];
     for (var i = 0; i < boardsize; i++) {
         var lineflag = 0;
@@ -85,10 +86,8 @@ function moveleft() {
                 moveflag = 1;
             };
             if (moveflag == 1) {
-                $('#gridnumber-' + i + '-' + j).animate({
-                    left: getleft(i, j - 1) + 'px'
-                }, animate_span);
-                moveflag = 1;
+                leftRightAnimate(i, j, -1)
+                canmove = 1;
                 if (lineflag == 0) {
                     lineflag = 1;
                     moveline = moveline.concat([i]);
@@ -96,15 +95,19 @@ function moveleft() {
             }
         };
     };
-    if (moveflag == 1) {
+    if (canmove == 1) {
         var idx = moveline[Math.ceil(moveline.length * Math.random()) - 1];
         board[idx][boardsize - 1] = nextnum;
-        setTimeout("UpdateBoard()", animate_span * 1.5);
+        //next number
+        setgrid('n', 'n', nextnum);
+        setgridpos('n', 'n', getleft(idx, boardsize - 1) + gridwidth, gettop(idx, boardsize - 1));
+        nextAnimateLeft(idx, boardsize - 1)
+        setTimeout("UpdateBoard()", animate_span);
     }
 }
 
 function moveright() {
-    var moveflag = 0;
+    var canmove = 0;
     var moveline = [];
     for (var i = 0; i < boardsize; i++) {
         var lineflag = 0;
@@ -126,10 +129,8 @@ function moveright() {
                 moveflag = 1
             };
             if (moveflag == 1) {
-                $('#gridnumber-' + i + '-' + j).animate({
-                    left: getleft(i, j + 1) + 'px'
-                }, animate_span);
-                moveflag = 1;
+                leftRightAnimate(i, j, 1)
+                canmove = 1;
                 if (lineflag == 0) {
                     lineflag = 1;
                     moveline = moveline.concat([i]);
@@ -137,15 +138,19 @@ function moveright() {
             }
         };
     };
-    if (moveflag == 1) {
+    if (canmove == 1) {
         var idx = moveline[Math.ceil(moveline.length * Math.random()) - 1];
         board[idx][0] = nextnum;
-        setTimeout("UpdateBoard()", animate_span * 1.5);
+        //next number
+        setgrid('n', 'n', nextnum);
+        setgridpos('n', 'n', getleft(idx, 0) - gridwidth, gettop(idx, 0));
+        nextAnimateLeft(idx, 0)
+        setTimeout("UpdateBoard()", animate_span);
     }
 }
 
 function moveup() {
-    var moveflag = 0;
+    var canmove = 0;
     var moveline = [];
     for (var j = 0; j < boardsize; j++) {
         var lineflag = 0;
@@ -167,10 +172,8 @@ function moveup() {
                 moveflag = 1
             };
             if (moveflag == 1) {
-                $('#gridnumber-' + i + '-' + j).animate({
-                    top: gettop(i - 1, j) + 'px'
-                }, animate_span);
-                moveflag = 1;
+                upDownAnimate(i, j, -1);
+                canmove = 1;
                 if (lineflag == 0) {
                     lineflag = 1;
                     moveline = moveline.concat([j]);
@@ -178,15 +181,19 @@ function moveup() {
             }
         };
     };
-    if (moveflag == 1) {
+    if (canmove == 1) {
         var idx = moveline[Math.ceil(moveline.length * Math.random()) - 1];
         board[boardsize - 1][idx] = nextnum;
-        setTimeout("UpdateBoard()", animate_span * 1.5);
+        //next number
+        setgrid('n', 'n', nextnum);
+        setgridpos('n', 'n', getleft(boardsize - 1, idx), gettop(boardsize - 1, idx) + gridheight);
+        nextAnimateUp(boardsize - 1, idx)
+        setTimeout("UpdateBoard()", animate_span);
     }
 }
 
 function movedown() {
-    var moveflag = 0;
+    var canmove = 0;
     var moveline = [];
     for (var j = 0; j < boardsize; j++) {
         var lineflag = 0;
@@ -208,10 +215,8 @@ function movedown() {
                 moveflag = 1
             };
             if (moveflag == 1) {
-                $('#gridnumber-' + i + '-' + j).animate({
-                    top: gettop(i + 1, j) + 'px'
-                }, animate_span);
-                moveflag = 1;
+                upDownAnimate(i, j, 1);
+                canmove = 1;
                 if (lineflag == 0) {
                     lineflag = 1;
                     moveline = moveline.concat([j]);
@@ -219,9 +224,63 @@ function movedown() {
             }
         };
     };
-    if (moveflag == 1) {
+    if (canmove == 1) {
         var idx = moveline[Math.ceil(moveline.length * Math.random()) - 1];
         board[0][idx] = nextnum;
-        setTimeout("UpdateBoard()", animate_span * 1.5);
+        //next number
+        setgrid('n', 'n', nextnum);
+        setgridpos('n', 'n', getleft(0, idx), gettop(0, idx) - gridheight);
+        nextAnimateUp(0, idx)
+        setTimeout("UpdateBoard()", animate_span);
     }
+}
+
+function isGameOver() {
+    for (var i = 0; i < boardsize; i++) {
+        for (var j = 1; j < boardsize; j++) {
+            if (board[i][j] == 0)
+                return 0;
+        }
+    }
+    //can move left
+    for (var i = 0; i < boardsize; i++) {
+        for (var j = 1; j < boardsize; j++) {
+            if (board[i][j - 1] == board[i][j] && board[i][j] >= 3) {
+                return 0;
+            } else if (board[i][j - 1] + board[i][j] == 3 && board[i][j - 1] != 0) {
+                return 0;
+            };
+        };
+    };
+    //can move right
+    for (var i = 0; i < boardsize; i++) {
+        for (var j = boardsize - 2; j >= 0; j--) {
+            if (board[i][j + 1] == board[i][j] && board[i][j] >= 3) {
+                return 0;
+            } else if (board[i][j + 1] + board[i][j] == 3 && board[i][j + 1] != 0) {
+                return 0;
+            };
+        };
+    };
+    //can move up
+    for (var j = 0; j < boardsize; j++) {
+        for (var i = 1; i < boardsize; i++) {
+            if (board[i - 1][j] == board[i][j] && board[i][j] >= 3) {
+                return 0;
+            } else if (board[i - 1][j] + board[i][j] == 3 && board[i - 1][j] != 0) {
+                return 0;
+            };
+        };
+    };
+    //can move down
+    for (var j = 0; j < boardsize; j++) {
+        for (var i = boardsize - 2; i >= 0; i--) {
+            if (board[i + 1][j] == board[i][j] && board[i][j] >= 3) {
+                return 0;
+            } else if (board[i + 1][j] + board[i][j] == 3 && board[i + 1][j] != 0) {
+                return 0;
+            };
+        };
+    };
+    return 1;
 }

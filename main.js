@@ -78,12 +78,18 @@ function UpdateBoard() {
             $('#container').append('<div class="gridnum" id="gridnumber-' + i + '-' + j + '">');
         };
     };
+    $('#container').append('<div class="gridnum" id="gridnumber-' + 'n' + '-' + 'n' + '">');
     for (var i = 0; i < boardsize; i++) {
         for (var j = 0; j < boardsize; j++) {
             setgrid(i, j, board[i][j]);
+            setgridpos(i, j, getleft(i, j), gettop(i, j));
         }
     }
     updateNextNum();
+    $('#score').text(GetScore());
+    if (isGameOver()) {
+        alert('gameover');
+    }
 }
 
 function updateNextNum() {
@@ -116,26 +122,37 @@ function setgrid(i, j, value) {
     grid.css('height', gridheight + 'px');
     if (value == 1) {
         grid.css('background', '#6CF');
-        grid.css('left', getleft(i, j) + 'px');
-        grid.css('top', gettop(i, j) + 'px');
         grid.css('color', '#FFF');
         grid.css('borderRa', '#FFF');
         grid.css('borderBottom', '5px solid #60aaf1');
         grid.text(1);
     } else if (value == 2) {
         grid.css('background', '#FF6881');
-        grid.css('left', getleft(i, j) + 'px');
-        grid.css('top', gettop(i, j) + 'px');
         grid.css('color', '#FFF');
         grid.css('borderBottom', '5px solid #cc547c');
         grid.text(2);
     } else if (value >= 3) {
         grid.css('background', '#FEFFFF');
-        grid.css('left', getleft(i, j) + 'px');
-        grid.css('top', gettop(i, j) + 'px');
         grid.css('color', '#000');
         grid.css('borderBottom', '5px solid #fc6');
         grid.text(value);
-
     }
+}
+
+function setgridpos(i, j, left, top) {
+    var grid = $('#gridnumber-' + i + "-" + j);
+    grid.css('left', left + 'px');
+    grid.css('top', top + 'px');
+}
+
+function GetScore() {
+    var sum = 0;
+    for (var i = 0; i < boardsize; i++) {
+        for (var j = 0; j < boardsize; j++) {
+            if (board[i][j] < 3)
+                continue;
+            sum += Math.pow(3, Math.log(board[i][j] / 3) / Math.log(2) + 1);
+        }
+    }
+    return sum
 }

@@ -31,15 +31,3 @@ function randomOrder(targetArray) {
 
     return tempArray3
 }
-
-//for debug
-function alertboard() {
-    var string = "";
-    for (var i = 0; i < boardsize; i++) {
-        for (var j = 0; j < boardsize; j++) {
-            string += board[i][j] + ' ';
-        }
-        string += '\n'
-    }
-    alert(string)
-}

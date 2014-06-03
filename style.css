@@ -31,7 +31,7 @@ header{
 	width:39px;
 	height: 51px;
 	margin: auto;
-	top: 51px;
+	top: 11px;
 	position: relative;
 	border-radius: 9px;
 }
@@ -40,7 +40,7 @@ header{
 	font-size: 25px;
 	font-weight: bold;
 	position: relative;
-	top: 54px;
+	top: 14px;
 }
 
 .grid{
@@ -63,7 +63,7 @@ header{
 	position: absolute;
 	border-radius: 10px;
 	text-align: center;
-	font-size: 50px;
+	font-size: 40px;
 	line-height: 100px;
 }
 
@@ -72,4 +72,8 @@ header{
 	font-size: 47px;
 	top: -44px;
 	visibility: hidden;
+}
+
+#score{
+	font-size: 29px;
 }
