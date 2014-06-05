@@ -237,7 +237,7 @@ function movedown() {
 
 function isGameOver() {
     for (var i = 0; i < boardsize; i++) {
-        for (var j = 1; j < boardsize; j++) {
+        for (var j = 0; j < boardsize; j++) {
             if (board[i][j] == 0)
                 return 0;
         }
