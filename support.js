@@ -1,9 +1,9 @@
 function getleft(i, j) {
-    return boardpadding + (2 * j + 1) * gridmargin + j * gridwidth;
+    return boardpadding + j * (gridmargin + gridwidth);
 }
 
 function gettop(i, j) {
-    return boardpadding + (2 * i + 1) * gridmargin + i * gridheight;
+    return boardpadding + i * (gridmargin + gridheight);
 }
 
 //返回二维数组的最大值
@@ -30,4 +30,17 @@ function randomOrder(targetArray) {
     }
 
     return tempArray3
+}
+
+function Dis(x1, y1, x2, y2) {
+    return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
+}
+
+function setAllPos() {
+    for (var i = 0; i < boardsize; i++) {
+        for (var j = 0; j < boardsize; j++) {
+            setgrid(i, j, board[i][j]);
+            setgridpos(i, j, getleft(i, j), gettop(i, j));
+        }
+    }
 }

@@ -1,18 +1,35 @@
-var boardsize = 4; //格子尺寸
-var InitGridNum = 7; //初始化时出现的格子数
-var board = new Array();
-var gridwidth = 70; //px
-var gridheight = 100; //px
-var gridmargin = 5; //px
-var boardpadding = 20; //棋盘内边距
-
-var score = 0;
-var nextlist = new Array();
-var nextcounter = 0;
-var maxgrid = 0;
-var nextnum = 1;
-
 $(document).ready(function() {
+    touchdir = 0;
+    boardsize = 4; //格子尺寸
+    InitGridNum = Math.ceil(Math.random() * 4) + 6; //初始化时出现的格子数
+    board = new Array();
+
+    documentWidth = document.documentElement.clientWidth;
+    if (documentWidth > 400)
+        documentWidth = 400;
+    gridmargin = 0.04 * documentWidth; //%
+    boardpadding = 0.06 * documentWidth; //棋盘内边距
+
+    documentHeidht = document.documentElement.clientHeight;
+    if (documentHeidht < 500) {
+        $('#next').css('height', '76px');
+        $('#nexticon').css('top', '-1px');
+        $('#nexticon').css('height', '32px');
+        $('.tiptext').css('top', '-3px');
+        $('#plusicon').css('top', '-90px');
+        documentHeidht = documentHeidht - 76 - 30 - 8 - 2 * boardpadding - 10;
+    } else
+        documentHeidht = documentHeidht - 113 - 30 - 8 - 2 * boardpadding - 10;
+    gridheight = (documentHeidht - (boardsize - 1) * gridmargin) / boardsize; //px
+
+    gridwidth = 0.75 * gridheight;
+    documentWidth = gridwidth * boardsize + (boardsize - 1) * gridmargin
+
+    score = 0;
+    nextlist = new Array();
+    nextcounter = 0;
+    maxgrid = 0;
+    nextnum = 1;
     CreateBackground();
     init();
 })
@@ -39,13 +56,6 @@ function init() {
     MakeBoard();
     //Random Init Board
     RandomInitBoard();
-    //这个情况下有BUG，待查证
-    // board = [
-    //     [0, 0, 0, 1],
-    //     [0, 0, 48, 6],
-    //     [2, 6, 12, 3],
-    //     [2, 0, 0, 2]
-    // ]
     //Init Next List
     score = 0;
     nextcounter = 0;
@@ -58,8 +68,8 @@ function init() {
 function MakeBoard() {
     $('.grid').css('width', gridwidth + 'px');
     $('.grid').css('height', gridheight + 'px');
-    $('#container').css('width', boardsize * (gridwidth + 2 * gridmargin) + 'px');
-    $('#container').css('height', boardsize * (gridheight + 2 * gridmargin) + 'px');
+    $('#container').css('width', documentWidth + 'px');
+    $('#container').css('height', documentHeidht + 'px');
     $('#container').css('padding', boardpadding + 'px');
 
     for (var i = 0; i < boardsize; i++) {
@@ -120,6 +130,7 @@ function setgrid(i, j, value) {
     if (value == 0) return;
     grid.css('width', gridwidth + 'px');
     grid.css('height', gridheight + 'px');
+    grid.css('fontSize', 0.4 * gridwidth + 'px');
     if (value == 1) {
         grid.css('background', '#6CF');
         grid.css('color', '#FFF');

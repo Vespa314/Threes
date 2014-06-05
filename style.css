@@ -10,12 +10,13 @@ body{
 #gamearea{
 	padding: 0px;
 	margin: 0px;
+	overflow: hidden;
 }
 
 header{
 	padding: 0px;
 	margin: auto;
-	width:600px;
+	width:100%;
 }
 
 #next {
@@ -63,14 +64,13 @@ header{
 	position: absolute;
 	border-radius: 10px;
 	text-align: center;
-	font-size: 40px;
-	line-height: 100px;
+	line-height: 3em;
 }
 
 #plusicon{
 	position: relative;
 	font-size: 47px;
-	top: -44px;
+	top: -82px;
 	visibility: hidden;
 }
 
