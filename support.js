@@ -1,9 +1,9 @@
 function getleft(i, j) {
-    return boardpadding + (2 * j + 1) * gridmargin + j * gridwidth;
+    return boardpadding + j * (gridmargin + gridwidth);
 }
 
 function gettop(i, j) {
-    return boardpadding + (2 * i + 1) * gridmargin + i * gridheight;
+    return boardpadding + i * (gridmargin + gridheight);
 }
 
 //返回二维数组的最大值
