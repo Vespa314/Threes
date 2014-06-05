@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    touchdir = 0;
     boardsize = 4; //格子尺寸
     InitGridNum = Math.ceil(Math.random() * 4) + 6; //初始化时出现的格子数
     board = new Array();
@@ -14,15 +15,15 @@ $(document).ready(function() {
         $('#next').css('height', '76px');
         $('#nexticon').css('top', '-1px');
         $('#nexticon').css('height', '32px');
-        $('.tiptext').css('top', '6px');
+        $('.tiptext').css('top', '-3px');
+        $('#plusicon').css('top', '-90px');
         documentHeidht = documentHeidht - 76 - 30 - 8 - 2 * boardpadding - 10;
     } else
         documentHeidht = documentHeidht - 113 - 30 - 8 - 2 * boardpadding - 10;
     gridheight = (documentHeidht - (boardsize - 1) * gridmargin) / boardsize; //px
 
     gridwidth = 0.75 * gridheight;
-    
-    documentWidth = gridwidth*boardsize+(boardsize-1)*gridmargin
+    documentWidth = gridwidth * boardsize + (boardsize - 1) * gridmargin
 
     score = 0;
     nextlist = new Array();
@@ -129,7 +130,7 @@ function setgrid(i, j, value) {
     if (value == 0) return;
     grid.css('width', gridwidth + 'px');
     grid.css('height', gridheight + 'px');
-    grid.css('fontSize',0.4*gridwidth+'px');
+    grid.css('fontSize', 0.4 * gridwidth + 'px');
     if (value == 1) {
         grid.css('background', '#6CF');
         grid.css('color', '#FFF');
