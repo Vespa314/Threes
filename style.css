@@ -51,7 +51,7 @@ header{
 	position: absolute;
 }
 
-#container{
+#gamecontainer{
 	margin: auto;
 	margin-top: 30px;
 	background: #cfe6df;
@@ -76,4 +76,11 @@ header{
 
 #score{
 	font-size: 29px;
+}
+
+#gameover{
+	float: right;
+	position: relative;
+	top: -127px;
+	color: #F00;
 }

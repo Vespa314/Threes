@@ -44,6 +44,9 @@ function GetNextNum() {
 }
 
 $(document).keydown(function(event) {
+	if(IsAnimate()){
+		return;
+	}
     event.preventDefault();
     switch (event.keyCode) {
         case 37: //left

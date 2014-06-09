@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function newgame(){
     touchdir = 0;
     boardsize = 4; //格子尺寸
     InitGridNum = Math.ceil(Math.random() * 4) + 6; //初始化时出现的格子数
@@ -25,6 +25,8 @@ $(document).ready(function() {
     gridwidth = 0.75 * gridheight;
     documentWidth = gridwidth * boardsize + (boardsize - 1) * gridmargin
 
+    $('#gameover').css('fontSize','5px');
+    $('#gameover').css('visibility','hidden');
     score = 0;
     nextlist = new Array();
     nextcounter = 0;
@@ -32,6 +34,10 @@ $(document).ready(function() {
     nextnum = 1;
     CreateBackground();
     init();
+}
+
+$(document).ready(function() {
+    newgame();
 })
 
 //create grid of background
@@ -39,7 +45,7 @@ function CreateBackground() {
     $('.grid').remove();
     for (var i = 0; i < boardsize; i++) {
         for (var j = 0; j < boardsize; j++) {
-            $('#container').append('<div class="grid" id="grid' + i + '' + j + '">');
+            $('#gamecontainer').append('<div class="grid" id="grid' + i + '' + j + '">');
         };
     };
 }
@@ -68,9 +74,9 @@ function init() {
 function MakeBoard() {
     $('.grid').css('width', gridwidth + 'px');
     $('.grid').css('height', gridheight + 'px');
-    $('#container').css('width', documentWidth + 'px');
-    $('#container').css('height', documentHeidht + 'px');
-    $('#container').css('padding', boardpadding + 'px');
+    $('#gamecontainer').css('width', documentWidth + 'px');
+    $('#gamecontainer').css('height', documentHeidht + 'px');
+    $('#gamecontainer').css('padding', boardpadding + 'px');
 
     for (var i = 0; i < boardsize; i++) {
         for (var j = 0; j < boardsize; j++) {
@@ -78,6 +84,7 @@ function MakeBoard() {
             $('#grid' + i + '' + j).css('top', gettop(i, j) + 'px');
         };
     };
+    
 }
 
 function UpdateBoard() {
@@ -85,20 +92,21 @@ function UpdateBoard() {
     $('.gridnum').remove();
     for (var i = 0; i < boardsize; i++) {
         for (var j = 0; j < boardsize; j++) {
-            $('#container').append('<div class="gridnum" id="gridnumber-' + i + '-' + j + '">');
+            $('#gamecontainer').append('<div class="gridnum" id="gridnumber-' + i + '-' + j + '"></div>');
         };
     };
-    $('#container').append('<div class="gridnum" id="gridnumber-' + 'n' + '-' + 'n' + '">');
+    $('#gamecontainer').append('<div class="gridnum" id="gridnumber-' + 'n' + '-' + 'n' + '"></div>');
     for (var i = 0; i < boardsize; i++) {
         for (var j = 0; j < boardsize; j++) {
-            setgrid(i, j, board[i][j]);
             setgridpos(i, j, getleft(i, j), gettop(i, j));
+            setgrid(i, j, board[i][j]);
         }
     }
     updateNextNum();
     $('#score').text(GetScore());
     if (isGameOver()) {
-        alert('gameover');
+        //alert('gameover');
+        ShowGameOver();
     }
 }
 
@@ -127,7 +135,9 @@ function updateNextNum() {
 
 function setgrid(i, j, value) {
     var grid = $('#gridnumber-' + i + "-" + j);
-    if (value == 0) return;
+    if (value == 0) {
+        return;
+    }
     grid.css('width', gridwidth + 'px');
     grid.css('height', gridheight + 'px');
     grid.css('fontSize', 0.4 * gridwidth + 'px');

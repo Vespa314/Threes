@@ -1,5 +1,17 @@
 animate_span = 200; //ms
 
+function IsAnimate(){
+    for (var i = 0; i < boardsize; i++) {
+        for (var j = 0; j < boardsize; j++) {
+            if($('#gridnumber-' + i + '-' + j).is(":animated"))
+                return 1;
+        }
+    }
+    if($('#gameover').is(":animated"))
+        return 1;
+    return 0;
+}
+
 function upDownAnimate(i, j, dir) {
     $('#gridnumber-' + i + '-' + j).animate({
         top: gettop(i + dir, j) + 'px'
@@ -22,6 +34,11 @@ function nextAnimateUp(i, j) {
     $('#gridnumber-n-n').animate({
         top: gettop(i, j) + 'px'
     }, animate_span);
+}
+
+function ShowGameOver() {
+    $('#gameover').css('visibility','visible');
+    $('#gameover').animate({fontSize: '30px'}, 1500);
 }
 
 function moveleftgrid() {
