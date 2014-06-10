@@ -83,4 +83,6 @@ header{
 	position: relative;
 	top: -127px;
 	color: #F00;
+	visibility: hidden;
+}
 }
