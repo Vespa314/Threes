@@ -44,22 +44,73 @@ function GetNextNum() {
 }
 
 $(document).keydown(function(event) {
-	if(IsAnimate()){
-		return;
-	}
-    event.preventDefault();
+    if (IsAnimate()) {
+        return;
+    }
     switch (event.keyCode) {
         case 37: //left
+            event.preventDefault();
             moveleft();
             break
         case 38: //up
+            event.preventDefault();
             moveup();
             break
         case 39: //right
+            event.preventDefault();
             moveright();
             break
         case 40: //down
+            event.preventDefault();
             movedown();
+            break
+        case 65: //test left
+            var MovableGrid = moveleftgrid();
+            for (var i = 0; i < MovableGrid.length; i++) {
+                var x = MovableGrid[i][0]
+                var y = MovableGrid[i][1]
+                $('#gridnumber-' + x + '-' + y).animate({
+                    left: getleft(x, y - 1) + 'px'
+                }, animate_span).animate({
+                    left: getleft(x, y) + 'px'
+                }, animate_span)
+            }
+            break
+        case 68: //test right
+            var MovableGrid = moverightgrid();
+            for (var i = 0; i < MovableGrid.length; i++) {
+                var x = MovableGrid[i][0]
+                var y = MovableGrid[i][1]
+                $('#gridnumber-' + x + '-' + y).animate({
+                    left: getleft(x, y + 1) + 'px'
+                }, animate_span).animate({
+                    left: getleft(x, y) + 'px'
+                }, animate_span)
+            }
+            break
+        case 83: //test down
+            var MovableGrid = movedowngrid();
+            for (var i = 0; i < MovableGrid.length; i++) {
+                var x = MovableGrid[i][0]
+                var y = MovableGrid[i][1]
+                $('#gridnumber-' + x + '-' + y).animate({
+                    top: gettop(x + 1, y) + 'px'
+                }, animate_span).animate({
+                    top: gettop(x, y) + 'px'
+                }, animate_span)
+            }
+            break
+        case 87: //test up
+            var MovableGrid = moveupgrid();
+            for (var i = 0; i < MovableGrid.length; i++) {
+                var x = MovableGrid[i][0]
+                var y = MovableGrid[i][1]
+                $('#gridnumber-' + x + '-' + y).animate({
+                    top: gettop(x - 1, y) + 'px'
+                }, animate_span).animate({
+                    top: gettop(x, y) + 'px'
+                }, animate_span)
+            }
             break
         default:
             break

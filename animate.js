@@ -1,13 +1,13 @@
 animate_span = 200; //ms
 
-function IsAnimate(){
+function IsAnimate() {
     for (var i = 0; i < boardsize; i++) {
         for (var j = 0; j < boardsize; j++) {
-            if($('#gridnumber-' + i + '-' + j).is(":animated"))
+            if ($('#gridnumber-' + i + '-' + j).is(":animated"))
                 return 1;
         }
     }
-    if($('#gameover').is(":animated"))
+    if ($('#gameover').is(":animated"))
         return 1;
     return 0;
 }
@@ -37,8 +37,10 @@ function nextAnimateUp(i, j) {
 }
 
 function ShowGameOver() {
-    $('#gameover').css('visibility','visible');
-    $('#gameover').animate({fontSize: '30px'}, 1500);
+    $('#gameover').css('visibility', 'visible');
+    $('#gameover').animate({
+        fontSize: '30px'
+    }, 1500);
 }
 
 function moveleftgrid() {
