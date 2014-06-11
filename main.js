@@ -1,4 +1,4 @@
-function newgame(){
+function newgame() {
     touchdir = 0;
     boardsize = 4; //格子尺寸
     InitGridNum = Math.ceil(Math.random() * 4) + 6; //初始化时出现的格子数
@@ -25,8 +25,8 @@ function newgame(){
     gridwidth = 0.75 * gridheight;
     documentWidth = gridwidth * boardsize + (boardsize - 1) * gridmargin
 
-    $('#gameover').css('fontSize','5px');
-    $('#gameover').css('visibility','hidden');
+    $('#gameover').css('fontSize', '5px');
+    $('#gameover').css('visibility', 'hidden');
     score = 0;
     nextlist = new Array();
     nextcounter = 0;
@@ -84,7 +84,7 @@ function MakeBoard() {
             $('#grid' + i + '' + j).css('top', gettop(i, j) + 'px');
         };
     };
-    
+
 }
 
 function UpdateBoard() {
