@@ -1,5 +1,9 @@
 function createNextList() {
     var origin_pos = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3];
+    /*var origin_pos = new Array();
+    for (var i = 0; i < 12; i++) {
+        origin_pos[i] = GetRandom(3);
+    }*/
     var newpos = randomOrder(origin_pos);
     newpos = newpos.concat(randomOrder(origin_pos));
     if (maxgrid >= 48) {
@@ -9,25 +13,30 @@ function createNextList() {
     return newpos
 }
 
-
 function RandomInitBoard() {
     var posx = 0;
     var posx = 0;
-    for (var i = 0; i < InitGridNum; i++) {
-        posx = Math.ceil(Math.random() * boardsize) - 1;
-        posy = Math.ceil(Math.random() * boardsize) - 1;
-        while (board[posx][posy] != 0) {
-            posx = Math.ceil(Math.random() * boardsize) - 1;
-            posy = Math.ceil(Math.random() * boardsize) - 1;
-        }
-        board[posx][posy] = Math.ceil(Math.random() * 3); //随机赋予1,2,3
-    };
+    while (1) {
+        for (var i = 0; i < InitGridNum; i++) {
+            posx = GetRandom(boardsize) - 1;
+            posy = GetRandom(boardsize) - 1;
+            while (board[posx][posy] != 0) {
+                posx = GetRandom(boardsize) - 1;
+                posy = GetRandom(boardsize) - 1;
+            }
+            board[posx][posy] = GetRandom(3); //随机赋予1,2,3
+        };
+        if (CountBoard(1) == CountBoard(2))
+            break
+        else
+            ClearBoard();
+    }
 }
 
 //Not Bigger than the 1/8 of max grid
 function CreateRandomGrid(curmax) {
     var maxidx = Math.log(curmax / 24) / Math.log(2);
-    var randomidx = Math.ceil(Math.random() * maxidx);
+    var randomidx = GetRandom(maxidx);
     return 3 * Math.pow(2, randomidx);
 }
 

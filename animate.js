@@ -202,7 +202,7 @@ function moveleft() {
         };
     };
     if (canmove == 1) {
-        var idx = moveline[Math.ceil(moveline.length * Math.random()) - 1];
+        var idx = moveline[GetRandom(moveline.length) - 1];
         board[idx][boardsize - 1] = nextnum;
         //next number
         setgrid('n', 'n', nextnum);
@@ -245,7 +245,7 @@ function moveright() {
         };
     };
     if (canmove == 1) {
-        var idx = moveline[Math.ceil(moveline.length * Math.random()) - 1];
+        var idx = moveline[GetRandom(moveline.length) - 1];
         board[idx][0] = nextnum;
         //next number
         setgrid('n', 'n', nextnum);
@@ -288,7 +288,7 @@ function moveup() {
         };
     };
     if (canmove == 1) {
-        var idx = moveline[Math.ceil(moveline.length * Math.random()) - 1];
+        var idx = moveline[GetRandom(moveline.length) - 1];
         board[boardsize - 1][idx] = nextnum;
         //next number
         setgrid('n', 'n', nextnum);
@@ -331,7 +331,7 @@ function movedown() {
         };
     };
     if (canmove == 1) {
-        var idx = moveline[Math.ceil(moveline.length * Math.random()) - 1];
+        var idx = moveline[GetRandom(moveline.length) - 1];
         board[0][idx] = nextnum;
         //next number
         setgrid('n', 'n', nextnum);

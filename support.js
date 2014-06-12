@@ -44,3 +44,30 @@ function setAllPos() {
         }
     }
 }
+
+function GetRandom(Upper) {
+    var num = Math.ceil(Math.random() * Upper);
+    while (num == 0)
+        num = Math.ceil(Math.random() * Upper);
+    return num
+}
+
+function ClearBoard() {
+    for (var i = 0; i < boardsize; i++) {
+        board[i] = new Array();
+        for (var j = 0; j < boardsize; j++) {
+            board[i][j] = 0;
+        };
+    };
+}
+
+function CountBoard(target) {
+    var counter = 0;
+    for (var i = 0; i < boardsize; i++) {
+        for (var j = 0; j < boardsize; j++) {
+            if (board[i][j] == target)
+                counter++;
+        };
+    };
+    return counter;
+}

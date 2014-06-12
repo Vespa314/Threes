@@ -1,7 +1,7 @@
 function newgame() {
     touchdir = 0;
     boardsize = 4; //格子尺寸
-    InitGridNum = Math.ceil(Math.random() * 4) + 6; //初始化时出现的格子数
+    InitGridNum = GetRandom(4) + 6; //初始化时出现的格子数
     board = new Array();
 
     documentWidth = document.documentElement.clientWidth;
@@ -52,12 +52,7 @@ function CreateBackground() {
 
 function init() {
     //Init board
-    for (var i = 0; i < boardsize; i++) {
-        board[i] = new Array();
-        for (var j = 0; j < boardsize; j++) {
-            board[i][j] = 0;
-        };
-    };
+    ClearBoard();
     //Init grid background
     MakeBoard();
     //Random Init Board
